@@ -1,0 +1,2537 @@
+.recall-scheduler-modal {
+	min-width: 480px;
+}
+
+.recall-scheduler-sidebar {
+	padding: 8px;
+	font-size: 0.92em;
+	overflow: auto;
+}
+
+.recall-scheduler-sidebar-header h4 {
+	margin: 0;
+}
+
+.recall-scheduler-sidebar-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 6px 0 10px;
+}
+
+.recall-scheduler-sidebar-btn {
+	padding: 4px 10px;
+	font-size: 0.8em;
+}
+
+.recall-scheduler-sidebar-stat {
+	margin: 4px 0;
+	color: var(--text-muted);
+	font-size: 0.86em;
+}
+
+.recall-scheduler-sidebar-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.recall-scheduler-sidebar-item {
+	padding: 8px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+}
+
+.recall-scheduler-sidebar-item-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 4px;
+}
+
+.recall-scheduler-countdown {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	white-space: nowrap;
+	font-weight: 600;
+}
+
+.recall-scheduler-countdown-wrap {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	justify-content: flex-end;
+}
+
+.recall-scheduler-countdown-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 18px;
+	height: 18px;
+	line-height: 1;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.recall-scheduler-countdown-icon::before {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 16px 16px;
+}
+
+.recall-scheduler-icon-hourglass::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3h10v2.7L13 11.6V12l4 5.7V21H7v-2.8L11 12V11.6L7 5.7z'/%3E%3Cpath d='M9.5 19h5'/%3E%3Cpath d='M7 21v-2'/%3E%3Cpath d='M17 21v-2'/%3E%3C/svg%3E");
+	animation: recall-hourglass-sand 2.2s linear infinite;
+}
+
+.recall-scheduler-icon-hourglass::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	top: 8px;
+	width: 6px;
+	height: 3px;
+	background: currentColor;
+	border-radius: 3px;
+	animation: recall-hourglass-drop 1.8s linear infinite;
+}
+
+.recall-scheduler-icon-clock::before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cline x1='12' y1='12' x2='12' y2='8'/%3E%3Cline x1='12' y1='12' x2='15.5' y2='12'/%3E%3Cpath d='M12 2.5V4M12 20v1.5M21 12h-1.5M4.5 12H3'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-clock::after {
+	content: '';
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	width: 1px;
+	height: 4px;
+	transform-origin: 1px 5px;
+	background: currentColor;
+	animation: recall-clock-hand 2.4s linear infinite;
+	border-radius: 1px;
+}
+
+.recall-scheduler-countdown-icon,
+.recall-scheduler-countdown-track-fill {
+	transition: color 0.35s ease, background-color 0.35s ease;
+}
+
+.recall-scheduler-countdown-overdue {
+	color: var(--text-error, #ef4444);
+	animation: recall-countdown-overdue 1.1s infinite;
+}
+
+.recall-scheduler-countdown-urgent {
+	color: var(--text-warning, #f59e0b);
+	animation: recall-countdown-warning 1.4s ease-in-out infinite;
+}
+
+.recall-scheduler-countdown-soon {
+	color: var(--text-accent, #0ea5e9);
+	animation: recall-countdown-soft 1.8s ease-in-out infinite;
+}
+
+.recall-scheduler-countdown-normal,
+.recall-scheduler-countdown-safe {
+	color: var(--text-muted, #6b7280);
+	opacity: 0.75;
+}
+
+.recall-scheduler-countdown-track-wrap {
+	display: flex;
+	margin: 2px 0 7px;
+}
+
+.recall-scheduler-countdown-track {
+	width: 100%;
+	height: 5px;
+	border-radius: 999px;
+	overflow: hidden;
+	background: color-mix(in hsl, var(--background-secondary-alt, #d4d4d8) 18%, transparent);
+	box-shadow: inset 0 0 0 1px color-mix(in hsl, var(--background-modifier-border, #d1d5db) 60%, transparent);
+}
+
+.recall-scheduler-countdown-track-fill {
+	height: 100%;
+	border-radius: 999px;
+	min-width: 2px;
+}
+
+@keyframes recall-countdown-overdue {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(12deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes recall-countdown-warning {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-1px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+@keyframes recall-countdown-soft {
+	0% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(-1px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes recall-hourglass-sand {
+	0% {
+		filter: drop-shadow(0 0 0.3px currentColor);
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(1px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@keyframes recall-hourglass-drop {
+	0% {
+		transform: translateY(-1px);
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	60% {
+		transform: translateY(4px);
+		opacity: 0.4;
+	}
+	100% {
+		transform: translateY(-1px);
+		opacity: 0;
+	}
+}
+
+@keyframes recall-clock-hand {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.recall-scheduler-sidebar-item-title {
+	font-weight: 600;
+}
+
+.recall-scheduler-item {
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+}
+
+.recall-scheduler-item-excerpt {
+	font-size: 0.92em;
+	color: var(--text-muted);
+	white-space: pre-wrap;
+	margin-bottom: 6px;
+}
+
+.recall-scheduler-item-meta {
+	font-size: 0.82em;
+	color: var(--text-muted);
+	margin-bottom: 8px;
+}
+
+.recall-scheduler-item-meta .recall-scheduler-source {
+	color: var(--text-accent);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.recall-scheduler-item-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.recall-scheduler-sidebar-action-btn,
+.recall-scheduler-feedback-btn {
+	padding: 4px 10px;
+	font-size: 0.78em;
+}
+
+.recall-scheduler-editor-form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 24px;
+}
+
+.recall-scheduler-editor-source-row {
+	display: flex;
+	gap: 14px;
+	align-items: flex-start;
+}
+
+.recall-scheduler-editor-source-row .recall-scheduler-input {
+	flex: 1;
+}
+
+.recall-scheduler-editor-target-row {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.recall-scheduler-editor-field-label {
+	color: var(--text-muted, #746b5d);
+	line-height: 1.4;
+}
+
+.recall-scheduler-target-picker {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.recall-scheduler-target-bulk-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.recall-scheduler-target-bulk-btn {
+	padding: 5px 12px;
+}
+
+.recall-scheduler-target-trigger {
+	width: 100%;
+	box-sizing: border-box;
+	text-align: left;
+	padding: 10px 36px 10px 14px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border, #d9c8a3) 78%, transparent);
+	border-radius: 14px;
+	background:
+		linear-gradient(145deg, color-mix(in hsl, var(--recall-clay-raised, #fff8e8) 92%, white 8%), var(--recall-clay-raised, #fff8e8));
+	color: var(--recall-ink) !important;
+	box-shadow:
+		3px 4px 9px rgba(92, 73, 41, 0.12),
+		inset 0 1px 0 rgba(255, 255, 255, 0.52);
+}
+
+.recall-scheduler-target-trigger::after {
+	content: '▾';
+	position: absolute;
+	right: 14px;
+	color: var(--recall-sage-dark, #49684d);
+}
+
+.recall-scheduler-target-menu,
+.recall-scheduler-target-option-list {
+	box-sizing: border-box;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border, #d9c8a3) 80%, transparent);
+	border-radius: 16px;
+	background:
+		radial-gradient(circle at 10% 8%, rgba(255, 244, 203, 0.62), transparent 30%),
+		linear-gradient(145deg, var(--recall-clay-bg, #f6efe2), color-mix(in hsl, var(--recall-clay-bg, #f6efe2) 78%, var(--recall-sage, #8fab80) 22%));
+	box-shadow:
+		8px 10px 20px rgba(92, 73, 41, 0.16),
+		-4px -4px 10px rgba(255, 255, 255, 0.46),
+		inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.recall-scheduler-target-menu {
+	position: absolute;
+	z-index: 20;
+	left: 0;
+	right: 0;
+	top: calc(100% + 8px);
+	display: none;
+	flex-direction: column;
+	gap: 6px;
+	max-height: 220px;
+	overflow-y: auto;
+	padding: 8px;
+}
+
+.recall-scheduler-target-picker.is-open .recall-scheduler-target-menu {
+	display: flex;
+}
+
+.recall-scheduler-target-option-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-height: min(52vh, 520px);
+	overflow-y: auto;
+	padding: 10px;
+}
+
+.recall-scheduler-target-menu::-webkit-scrollbar,
+.recall-scheduler-target-option-list::-webkit-scrollbar {
+	width: 8px;
+}
+
+.recall-scheduler-target-menu::-webkit-scrollbar-thumb,
+.recall-scheduler-target-option-list::-webkit-scrollbar-thumb {
+	border-radius: 999px;
+	background: color-mix(in hsl, var(--recall-sage, #8fab80) 42%, transparent);
+}
+
+.recall-scheduler-target-option {
+	width: 100%;
+	box-sizing: border-box;
+	text-align: left;
+	padding: 10px 12px;
+	border: 1px solid transparent;
+	border-radius: 12px;
+	background: transparent;
+	color: var(--recall-ink) !important;
+}
+
+.recall-scheduler-target-option:hover,
+.recall-scheduler-target-option.is-selected {
+	border-color: color-mix(in hsl, var(--recall-sage, #8fab80) 64%, transparent);
+	background: color-mix(in hsl, var(--recall-sage, #8fab80) 18%, var(--recall-clay-raised, #fff8e8));
+}
+
+.recall-scheduler-target-option.is-selected::before {
+	content: '✓ ';
+	color: var(--recall-sage-dark, #49684d);
+	font-weight: 700;
+}
+
+.recall-scheduler-input,
+.recall-scheduler-textarea {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.recall-scheduler-textarea {
+	resize: vertical;
+}
+
+.recall-scheduler-editor-actions {
+	display: flex;
+	gap: 12px;
+	justify-content: flex-end;
+	margin-top: 24px;
+}
+
+.recall-scheduler-alarm-modal {
+	max-width: 420px;
+	cursor: pointer;
+	border-left: 4px solid var(--text-error, #ef4444);
+}
+
+.recall-scheduler-alarm-modal h2 {
+	margin: 0 0 8px;
+}
+
+.recall-scheduler-alarm-summary {
+	margin: 8px 0 10px;
+	line-height: 1.4;
+}
+
+.recall-scheduler-alarm-icon-wrap {
+	display: flex;
+	justify-content: center;
+}
+
+.recall-scheduler-alarm-icon {
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	position: relative;
+	animation: recall-alarm-shake 0.25s infinite;
+}
+
+.recall-scheduler-alarm-icon::before {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px 20px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 2h4'/%3E%3Cpath d='M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z'/%3E%3Cpath d='M17 8a5 5 0 0 0-10 0c0 4-2 5-2 8h14c0-3-2-4-2-8'/%3E%3Cpath d='M12 2a3 3 0 0 1 3 3v1h-6V5a3 3 0 0 1 3-3z'/%3E%3Cline x1='10.5' y1='12' x2='13.5' y2='12'/%3E%3Cpath d='M12 14h0'/%3E%3C/svg%3E");
+	background-color: var(--text-error, #ef4444);
+	box-shadow: 0 0 0 3px color-mix(in hsl, var(--text-error, #ef4444) 35%, transparent);
+}
+
+.recall-scheduler-alarm-list {
+	margin: 0 0 10px;
+}
+
+.recall-scheduler-alarm-item {
+	font-size: 0.84em;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	padding: 4px 0;
+	border-bottom: 1px dashed color-mix(in hsl, var(--background-modifier-border, #d1d5db) 50%, transparent);
+}
+
+.recall-scheduler-alarm-item-title {
+	font-weight: 600;
+}
+
+.recall-scheduler-alarm-item-time {
+	color: var(--text-muted, #6b7280);
+}
+
+.recall-scheduler-alarm-more {
+	margin: 6px 0 0;
+	color: var(--text-muted, #6b7280);
+	font-size: 0.82em;
+}
+
+.recall-scheduler-alarm-actions {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+}
+
+@keyframes recall-alarm-shake {
+	0% {
+		transform: rotate(0deg) translateX(0);
+	}
+	25% {
+		transform: rotate(6deg) translateX(-2px);
+	}
+	75% {
+		transform: rotate(-6deg) translateX(2px);
+	}
+	100% {
+		transform: rotate(0deg) translateX(0);
+	}
+}
+
+.recall-scheduler-file-picker-modal {
+	min-width: 560px;
+}
+
+.recall-scheduler-file-tree {
+	max-height: 420px;
+	overflow: auto;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	padding: 8px;
+	margin-top: 8px;
+}
+
+.recall-scheduler-file-tree-folder {
+	padding: 2px 0 2px 2px;
+}
+
+.recall-scheduler-file-tree-folder summary {
+	cursor: pointer;
+	outline: none;
+}
+
+.recall-scheduler-file-tree-folder summary::-webkit-details-marker {
+	display: none;
+}
+
+.recall-scheduler-file-tree-folder summary::before {
+	content: '▸ ';
+	font-size: 0.9em;
+	display: inline-block;
+	transition: transform 0.2s ease;
+	color: var(--text-muted);
+}
+
+.recall-scheduler-file-tree-folder[open] summary::before {
+	transform: rotate(90deg);
+}
+
+.recall-scheduler-file-tree-children {
+	padding-left: 16px;
+}
+
+.recall-scheduler-file-tree-item {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	text-align: left;
+	padding: 4px 6px;
+	margin-top: 4px;
+	border: none;
+	background: transparent;
+}
+
+.recall-scheduler-file-tree-item:hover {
+	background: var(--background-secondary);
+}
+
+.modal.recall-scheduler-popup-shell {
+	width: fit-content;
+	min-width: 0;
+	max-width: calc(100vw - 32px);
+	box-sizing: border-box;
+	padding: 28px;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	overflow: visible;
+}
+
+.modal.recall-scheduler-popup-shell .modal-content {
+	margin: 0;
+	padding: 0;
+	max-height: calc(100vh - 96px);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.modal.recall-scheduler-popup-shell .modal-close-button {
+	top: 12px;
+	right: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border: 1px solid color-mix(in hsl, var(--background-modifier-border, #d9c8a3) 74%, #bda36f);
+	border-radius: 999px;
+	background: color-mix(in hsl, var(--background-primary, #f6efe2) 88%, #efe1c4);
+	box-shadow:
+		4px 5px 12px rgba(93, 72, 42, 0.18),
+		inset 0 1px 0 rgba(255, 255, 255, 0.58);
+	color: var(--text-muted, #746b5d);
+}
+
+.recall-scheduler-modal,
+.recall-scheduler-editor-modal,
+.recall-scheduler-file-picker-modal,
+.recall-scheduler-alarm-modal {
+	--recall-clay-bg: color-mix(in hsl, var(--background-primary, #f6efe2) 88%, #efe1c4);
+	--recall-clay-raised: color-mix(in hsl, var(--background-secondary, #fff8e8) 82%, #f0d9a8);
+	--recall-clay-border: color-mix(in hsl, var(--background-modifier-border, #d9c8a3) 72%, #bda36f);
+	--recall-clay-shadow: rgba(93, 72, 42, 0.18);
+	--recall-clay-inset: rgba(255, 255, 255, 0.62);
+	--recall-sage: #8fab80;
+	--recall-sage-dark: #49684d;
+	--recall-sand: #e7c981;
+	--recall-ink: var(--text-normal, #2f2a22);
+	width: min(590px, calc(100vw - 64px));
+	min-width: min(360px, calc(100vw - 64px));
+	max-width: 640px;
+	box-sizing: border-box;
+	padding: 34px 40px 32px;
+	border: 1.5px solid var(--recall-clay-border);
+	border-radius: 26px;
+	background:
+		radial-gradient(circle at 12% 8%, rgba(255, 244, 203, 0.72), transparent 31%),
+		linear-gradient(145deg, var(--recall-clay-bg), color-mix(in hsl, var(--recall-clay-bg) 78%, var(--recall-sage) 22%));
+	box-shadow:
+		12px 14px 28px var(--recall-clay-shadow),
+		-8px -8px 18px var(--recall-clay-inset),
+		inset 0 1px 0 rgba(255, 255, 255, 0.52);
+	color: var(--recall-ink);
+}
+
+.recall-scheduler-modal {
+	padding-inline: 0;
+	width: min(760px, calc(100vw - 64px));
+	max-width: 860px;
+}
+
+.recall-scheduler-panel-body {
+	box-sizing: border-box;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 18px;
+	padding-bottom: 24px;
+}
+
+.recall-scheduler-editor-body,
+.recall-scheduler-alarm-body {
+	padding-top: 22px;
+	padding-bottom: 28px;
+}
+
+.recall-scheduler-editor-body h3 {
+	margin: 0;
+}
+
+.recall-scheduler-alarm-body .recall-scheduler-modal-header {
+	margin-bottom: 28px;
+}
+
+.recall-scheduler-modal button,
+.recall-scheduler-editor-modal button,
+.recall-scheduler-file-picker-modal button,
+.recall-scheduler-alarm-modal button {
+	color: var(--recall-ink) !important;
+	text-shadow: none;
+}
+
+.recall-scheduler-modal button:disabled,
+.recall-scheduler-editor-modal button:disabled,
+.recall-scheduler-file-picker-modal button:disabled,
+.recall-scheduler-alarm-modal button:disabled {
+	color: color-mix(in hsl, var(--recall-ink) 52%, var(--text-muted, #746b5d)) !important;
+	opacity: 0.72;
+}
+
+.recall-scheduler-sidebar {
+	--recall-clay-bg: color-mix(in hsl, var(--background-primary, #f6efe2) 88%, #efe1c4);
+	--recall-clay-raised: color-mix(in hsl, var(--background-secondary, #fff8e8) 82%, #f0d9a8);
+	--recall-clay-border: color-mix(in hsl, var(--background-modifier-border, #d9c8a3) 72%, #bda36f);
+	--recall-sage: #8fab80;
+	--recall-sage-dark: #49684d;
+	--recall-ink: var(--text-normal, #2f2a22);
+}
+
+.recall-scheduler-file-picker-modal {
+	width: min(590px, calc(100vw - 64px));
+}
+
+.recall-scheduler-alarm-modal {
+	width: min(520px, calc(100vw - 64px));
+	cursor: default;
+	border-left: 1px solid var(--recall-clay-border);
+}
+
+.recall-scheduler-modal-header {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 34px;
+}
+
+.recall-scheduler-modal-title-wrap {
+	min-width: 0;
+	flex: 1;
+}
+
+.recall-scheduler-title-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
+}
+
+.recall-scheduler-version-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2px 7px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border, #d9c8a3) 76%, transparent);
+	border-radius: 7px;
+	background: color-mix(in hsl, var(--recall-clay-raised, #fff8e8) 82%, transparent);
+	color: color-mix(in hsl, var(--recall-ink, #2f2a22) 78%, var(--text-muted, #746b5d));
+	font-size: 0.66em;
+	font-weight: 800;
+	line-height: 1.2;
+	letter-spacing: 0.03em;
+}
+
+.recall-scheduler-modal h2,
+.recall-scheduler-alarm-modal h2,
+.recall-scheduler-file-picker-modal h3 {
+	margin: 0;
+	font-size: 1.18em;
+	letter-spacing: 0.01em;
+}
+
+.recall-scheduler-modal-subtitle {
+	margin: 8px 0 0;
+	color: var(--text-muted, #746b5d);
+	font-size: 0.8em;
+	line-height: 1.45;
+}
+
+.recall-scheduler-modal-count {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 28px;
+	height: 24px;
+	padding: 0 8px;
+	border: 1px solid color-mix(in hsl, var(--recall-sage) 56%, transparent);
+	border-radius: 999px;
+	background: color-mix(in hsl, var(--recall-sage) 16%, transparent);
+	color: var(--recall-sage-dark);
+	font-size: 0.78em;
+	font-weight: 700;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.recall-scheduler-header-controls {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 12px;
+	flex: 0 0 auto;
+}
+
+.recall-scheduler-theme-switcher {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 5px 8px 5px 10px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 78%, transparent);
+	border-radius: 999px;
+	background: color-mix(in hsl, var(--recall-clay-raised) 78%, transparent);
+	box-shadow:
+		2px 3px 7px rgba(92, 73, 41, 0.1),
+		inset 0 1px 0 rgba(255, 255, 255, 0.46);
+}
+
+.recall-scheduler-theme-label {
+	color: var(--text-muted, #746b5d);
+	font-size: 0.72em;
+	font-weight: 700;
+}
+
+.recall-scheduler-theme-select {
+	-webkit-appearance: none;
+	appearance: none;
+	max-width: 112px;
+	padding: 2px 20px 2px 0;
+	border: 0;
+	background:
+		linear-gradient(45deg, transparent 50%, currentColor 50%) right 6px top 52% / 5px 5px no-repeat,
+		linear-gradient(135deg, currentColor 50%, transparent 50%) right 1px top 52% / 5px 5px no-repeat;
+	color: var(--recall-ink);
+	font: inherit;
+	font-size: 0.78em;
+	font-weight: 750;
+	line-height: 1.4;
+}
+
+.recall-scheduler-modal-toolbar {
+	box-sizing: border-box;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 14px;
+	row-gap: 10px;
+	margin: 10px 0 24px;
+}
+
+.recall-scheduler-search-row {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 22px;
+}
+
+.recall-scheduler-search-input {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 11px 16px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 78%, transparent);
+	border-radius: 16px;
+	background:
+		linear-gradient(145deg, color-mix(in hsl, var(--recall-clay-raised) 90%, white 10%), var(--recall-clay-raised));
+	color: var(--recall-ink);
+	font: inherit;
+	line-height: 1.45;
+	box-shadow:
+		inset 2px 2px 6px rgba(92, 73, 41, 0.08),
+		inset -2px -2px 5px rgba(255, 255, 255, 0.4);
+}
+
+.recall-scheduler-search-clear {
+	flex: 0 0 auto;
+}
+
+.recall-scheduler-content-layout {
+	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: 206px minmax(0, 1fr);
+	gap: 18px;
+	align-items: start;
+}
+
+.recall-scheduler-list-wrap {
+	min-width: 0;
+}
+
+.recall-scheduler-status-nav {
+	box-sizing: border-box;
+	position: sticky;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 14px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 72%, transparent);
+	border-radius: 22px;
+	background:
+		radial-gradient(circle at 18% 8%, rgba(255, 244, 203, 0.52), transparent 30%),
+		color-mix(in hsl, var(--recall-clay-raised) 76%, transparent);
+	box-shadow:
+		4px 6px 12px rgba(92, 73, 41, 0.1),
+		inset 0 1px 0 rgba(255, 255, 255, 0.46);
+}
+
+.recall-scheduler-status-nav-title {
+	margin-bottom: 4px;
+	color: var(--text-muted, #746b5d);
+	font-size: 0.78em;
+	font-weight: 700;
+}
+
+.recall-scheduler-status-nav-item {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 8px 10px;
+	border: 1px solid transparent;
+	border-radius: 14px;
+	background: transparent;
+	color: var(--recall-ink) !important;
+	text-align: left;
+}
+
+.recall-scheduler-status-nav-item:hover,
+.recall-scheduler-status-nav-item.is-active {
+	border-color: color-mix(in hsl, var(--recall-sage) 62%, transparent);
+	background: color-mix(in hsl, var(--recall-sage) 17%, var(--recall-clay-raised));
+	color: var(--recall-sage-dark) !important;
+}
+
+.recall-scheduler-status-nav-item:disabled {
+	opacity: 0.48;
+}
+
+.recall-scheduler-status-nav-label {
+	flex: 1 0 auto;
+	min-width: max-content;
+	overflow: visible;
+	text-overflow: clip;
+	white-space: nowrap;
+}
+
+.recall-scheduler-status-nav-count {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: auto;
+	min-width: 24px;
+	height: 20px;
+	padding: 0 7px;
+	border-radius: 999px;
+	background: color-mix(in hsl, var(--recall-sage) 16%, transparent);
+	color: var(--recall-sage-dark);
+	font-size: 0.78em;
+	font-weight: 700;
+}
+
+.recall-scheduler-visual-icon {
+	--recall-icon-bg: #fff2c9;
+	--recall-icon-fill: #e7a94d;
+	--recall-icon-accent: #6ea66c;
+	--recall-icon-line: #5b523b;
+	position: relative;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	flex: 0 0 24px;
+	border-radius: 9px;
+	background:
+		radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.72), transparent 28%),
+		linear-gradient(145deg, var(--recall-icon-bg), color-mix(in hsl, var(--recall-icon-bg) 72%, var(--recall-icon-fill)));
+	box-shadow:
+		2px 3px 7px rgba(92, 73, 41, 0.16),
+		inset 0 1px 0 rgba(255, 255, 255, 0.66);
+}
+
+.recall-scheduler-visual-icon::before,
+.recall-scheduler-visual-icon::after {
+	content: '';
+	position: absolute;
+	box-sizing: border-box;
+}
+
+.recall-scheduler-icon-all::before {
+	left: 7px;
+	top: 7px;
+	width: 11px;
+	height: 2px;
+	background: var(--recall-icon-line);
+	box-shadow:
+		0 4px 0 var(--recall-icon-line),
+		0 8px 0 var(--recall-icon-line);
+}
+
+.recall-scheduler-icon-overdue {
+	--recall-icon-bg: #ffd9ca;
+	--recall-icon-fill: #e35f45;
+	--recall-icon-line: #6a241d;
+}
+
+.recall-scheduler-icon-overdue::before {
+	content: '!';
+	inset: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 999px;
+	background: var(--recall-icon-fill);
+	color: #fff8ed;
+	font-weight: 900;
+	line-height: 1;
+}
+
+.recall-scheduler-icon-today {
+	--recall-icon-bg: #fff0bd;
+	--recall-icon-fill: #f1a329;
+	--recall-icon-line: #6b3f12;
+}
+
+.recall-scheduler-icon-today::before {
+	left: 5px;
+	top: 6px;
+	width: 14px;
+	height: 13px;
+	border: 2px solid var(--recall-icon-line);
+	border-radius: 3px;
+	background:
+		linear-gradient(var(--recall-icon-fill) 0 0) 0 0 / 100% 4px no-repeat,
+		#fff7d9;
+}
+
+.recall-scheduler-icon-today::after {
+	left: 9px;
+	top: 12px;
+	width: 2px;
+	height: 2px;
+	background: var(--recall-icon-line);
+	box-shadow:
+		4px 0 0 var(--recall-icon-line),
+		0 4px 0 var(--recall-icon-line),
+		4px 4px 0 var(--recall-icon-line);
+}
+
+.recall-scheduler-icon-future {
+	--recall-icon-bg: #dcecff;
+	--recall-icon-fill: #5791e6;
+	--recall-icon-line: #1f477c;
+}
+
+.recall-scheduler-icon-future::before {
+	left: 7px;
+	top: 4px;
+	width: 10px;
+	height: 16px;
+	clip-path: polygon(0 0, 100% 0, 78% 26%, 56% 50%, 78% 74%, 100% 100%, 0 100%, 22% 74%, 44% 50%, 22% 26%);
+	background: var(--recall-icon-fill);
+	box-shadow: inset 0 0 0 2px var(--recall-icon-line);
+}
+
+.recall-scheduler-icon-new {
+	--recall-icon-bg: #ddf5c8;
+	--recall-icon-fill: #5eb852;
+	--recall-icon-line: #2b682f;
+}
+
+.recall-scheduler-icon-new::before {
+	left: 11px;
+	top: 10px;
+	width: 3px;
+	height: 10px;
+	border-radius: 3px;
+	background: var(--recall-icon-line);
+}
+
+.recall-scheduler-icon-new::after {
+	left: 6px;
+	top: 6px;
+	width: 8px;
+	height: 8px;
+	border-radius: 8px 8px 1px 8px;
+	background: var(--recall-icon-fill);
+	box-shadow: 7px 1px 0 -1px color-mix(in hsl, var(--recall-icon-fill) 78%, #fff 22%);
+	transform: rotate(-22deg);
+}
+
+.recall-scheduler-icon-learning {
+	--recall-icon-bg: #fff2c9;
+	--recall-icon-fill: #6aa7df;
+	--recall-icon-line: #2d4f86;
+}
+
+.recall-scheduler-icon-learning::before {
+	left: 5px;
+	top: 7px;
+	width: 7px;
+	height: 11px;
+	border: 2px solid var(--recall-icon-line);
+	border-right: 1px solid var(--recall-icon-line);
+	border-radius: 2px 0 0 2px;
+	background: #fff8df;
+	box-shadow: 7px 0 0 #fff8df, 8px 0 0 var(--recall-icon-line);
+}
+
+.recall-scheduler-icon-learning::after {
+	left: 11px;
+	top: 8px;
+	width: 2px;
+	height: 12px;
+	border-radius: 2px;
+	background: var(--recall-icon-fill);
+}
+
+.recall-scheduler-icon-review {
+	--recall-icon-bg: #dce8ff;
+	--recall-icon-fill: #6f8fe8;
+	--recall-icon-line: #304f91;
+}
+
+.recall-scheduler-icon-review::before {
+	inset: 5px;
+	border: 3px solid var(--recall-icon-fill);
+	border-radius: 999px;
+	box-shadow:
+		0 0 0 2px color-mix(in hsl, var(--recall-icon-line) 38%, transparent),
+		inset 0 0 0 3px rgba(255, 255, 255, 0.55);
+}
+
+.recall-scheduler-icon-relearning {
+	--recall-icon-bg: #f0d6ff;
+	--recall-icon-fill: #bd62ef;
+	--recall-icon-line: #65358c;
+}
+
+.recall-scheduler-icon-relearning::before {
+	left: 8px;
+	top: 4px;
+	width: 10px;
+	height: 17px;
+	clip-path: polygon(45% 0, 100% 0, 64% 42%, 100% 42%, 34% 100%, 48% 57%, 0 57%);
+	background: var(--recall-icon-fill);
+	filter: drop-shadow(1px 1px 0 var(--recall-icon-line));
+}
+
+.recall-scheduler-icon-archived {
+	--recall-icon-bg: #e6e2dc;
+	--recall-icon-fill: #8d8b8a;
+	--recall-icon-line: #4e4a47;
+}
+
+.recall-scheduler-icon-archived::before {
+	left: 5px;
+	top: 9px;
+	width: 15px;
+	height: 10px;
+	border: 2px solid var(--recall-icon-line);
+	border-radius: 2px;
+	background: var(--recall-icon-fill);
+}
+
+.recall-scheduler-icon-archived::after {
+	left: 7px;
+	top: 5px;
+	width: 11px;
+	height: 5px;
+	border: 2px solid var(--recall-icon-line);
+	border-bottom: 0;
+	border-radius: 2px 2px 0 0;
+	background: color-mix(in hsl, var(--recall-icon-fill) 70%, white 30%);
+}
+
+.recall-scheduler-leaderboard {
+	box-sizing: border-box;
+	margin: 0 0 24px;
+	padding: 18px 20px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 74%, transparent);
+	border-radius: 22px;
+	background:
+		radial-gradient(circle at 12% 6%, rgba(255, 244, 203, 0.58), transparent 32%),
+		color-mix(in hsl, var(--recall-clay-raised) 78%, transparent);
+	box-shadow:
+		5px 7px 14px rgba(92, 73, 41, 0.1),
+		inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.recall-scheduler-leaderboard-head {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 14px;
+}
+
+.recall-scheduler-leaderboard-title {
+	font-weight: 800;
+}
+
+.recall-scheduler-leaderboard-subtitle,
+.recall-scheduler-leaderboard-empty,
+.recall-scheduler-leaderboard-item-meta {
+	color: var(--text-muted, #746b5d);
+	font-size: 0.8em;
+	line-height: 1.45;
+}
+
+.recall-scheduler-leaderboard-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: flex-end;
+}
+
+.recall-scheduler-leaderboard-tab {
+	padding: 5px 11px;
+}
+
+.recall-scheduler-leaderboard-tab.is-active {
+	border-color: color-mix(in hsl, var(--recall-sage) 70%, transparent);
+	background: color-mix(in hsl, var(--recall-sage) 22%, var(--recall-clay-raised));
+	color: var(--recall-sage-dark) !important;
+	font-weight: 700;
+}
+
+.recall-scheduler-leaderboard-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.recall-scheduler-leaderboard-item {
+	display: grid;
+	grid-template-columns: 30px 40px minmax(0, 1fr) auto;
+	align-items: start;
+	gap: 12px;
+	width: 100%;
+	min-height: 66px;
+	box-sizing: border-box;
+	padding: 14px 16px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 68%, transparent);
+	border-radius: 16px;
+	background: color-mix(in hsl, var(--recall-clay-bg) 70%, white 30%);
+	color: var(--recall-ink) !important;
+	line-height: 1.35;
+	text-align: left;
+}
+
+.recall-scheduler-leaderboard-rank {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	margin-top: 7px;
+	border-radius: 9px;
+	background: color-mix(in hsl, var(--recall-sand) 38%, white 62%);
+	color: #725626;
+	font-weight: 800;
+}
+
+.recall-scheduler-leaderboard-avatar {
+	position: relative;
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	border-radius: 13px;
+	background:
+		radial-gradient(circle at 38% 38%, rgba(255, 255, 255, 0.7), transparent 22%),
+		linear-gradient(145deg, #ffe3c7, #f0a56e);
+	box-shadow:
+		2px 3px 7px rgba(92, 73, 41, 0.16),
+		inset 0 1px 0 rgba(255, 255, 255, 0.66);
+}
+
+.recall-scheduler-leaderboard-avatar::before,
+.recall-scheduler-leaderboard-avatar::after {
+	content: '';
+	position: absolute;
+	box-sizing: border-box;
+}
+
+.recall-scheduler-avatar-1::before {
+	left: 8px;
+	top: 7px;
+	width: 18px;
+	height: 20px;
+	border-radius: 8px 8px 7px 7px;
+	background:
+		radial-gradient(circle at 6px 9px, #2b2434 0 1.6px, transparent 2px),
+		radial-gradient(circle at 12px 9px, #2b2434 0 1.6px, transparent 2px),
+		radial-gradient(circle at 9px 14px, #df6f69 0 2px, transparent 2.3px),
+		#ffd0b8;
+	box-shadow:
+		inset 0 4px 0 #34233b,
+		0 0 0 2px #5b523b;
+}
+
+.recall-scheduler-avatar-1::after {
+	left: 7px;
+	top: 24px;
+	width: 20px;
+	height: 7px;
+	border-radius: 6px 6px 3px 3px;
+	background: #4f79d6;
+}
+
+.recall-scheduler-avatar-2 {
+	background: linear-gradient(145deg, #dbeaff, #82aeea);
+}
+
+.recall-scheduler-avatar-2::before {
+	left: 7px;
+	top: 7px;
+	width: 20px;
+	height: 20px;
+	border-radius: 11px 11px 9px 9px;
+	background:
+		radial-gradient(circle at 7px 9px, #27345f 0 1.7px, transparent 2px),
+		radial-gradient(circle at 14px 9px, #27345f 0 1.7px, transparent 2px),
+		linear-gradient(#f5b450 0 0) 9px 13px / 5px 3px no-repeat,
+		#6f9fe6;
+	box-shadow:
+		0 0 0 2px #334f8f,
+		inset -4px -4px 0 rgba(31, 64, 124, 0.22);
+}
+
+.recall-scheduler-avatar-2::after {
+	left: 11px;
+	top: 3px;
+	width: 12px;
+	height: 5px;
+	border-radius: 8px 8px 0 0;
+	background: #dceaff;
+}
+
+.recall-scheduler-avatar-3 {
+	background: linear-gradient(145deg, #d9ffd0, #73c86c);
+}
+
+.recall-scheduler-avatar-3::before {
+	left: 7px;
+	top: 8px;
+	width: 21px;
+	height: 19px;
+	border-radius: 12px 12px 9px 9px;
+	background:
+		radial-gradient(circle at 7px 8px, #263b23 0 1.8px, transparent 2.2px),
+		radial-gradient(circle at 14px 8px, #263b23 0 1.8px, transparent 2.2px),
+		radial-gradient(circle at 11px 14px, #fff4b7 0 3px, transparent 3.3px),
+		#7bd868;
+	box-shadow:
+		0 0 0 2px #3a8136,
+		inset -4px -4px 0 rgba(43, 112, 38, 0.22);
+}
+
+.recall-scheduler-avatar-3::after {
+	left: 8px;
+	top: 4px;
+	width: 5px;
+	height: 5px;
+	border-radius: 999px;
+	background: #4aa344;
+	box-shadow: 15px 1px 0 #4aa344;
+}
+
+/* SVG icon layer: keeps the plugin self-contained while avoiding external PNG assets. */
+.recall-scheduler-visual-icon {
+	overflow: hidden;
+	isolation: isolate;
+}
+
+.recall-scheduler-visual-icon::before {
+	inset: 4px;
+	width: auto;
+	height: auto;
+	border: 0;
+	border-radius: 0;
+	background: var(--recall-icon-symbol, var(--recall-icon-line));
+	box-shadow: none;
+	clip-path: none;
+	filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.45)) drop-shadow(0 2px 2px rgba(63, 52, 32, 0.2));
+	mask: var(--recall-icon-svg) center / contain no-repeat;
+	-webkit-mask: var(--recall-icon-svg) center / contain no-repeat;
+	transform: none;
+}
+
+.recall-scheduler-visual-icon::after {
+	display: none;
+}
+
+.recall-scheduler-icon-all,
+.recall-scheduler-icon-learning {
+	--recall-icon-bg: #fff2c9;
+	--recall-icon-fill: #6aa7df;
+	--recall-icon-line: #2d4f86;
+	--recall-icon-symbol: #5c70d6;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M6 7.5c0-1.4 1.1-2.5 2.5-2.5h6.2c1 0 1.9.4 2.5 1.1C17.8 5.4 18.7 5 19.7 5h3.8C24.9 5 26 6.1 26 7.5v18.3c0 .8-.8 1.4-1.6 1.1l-5.7-2.1c-.8-.3-1.7-.1-2.3.4l-.4.4-.4-.4c-.6-.6-1.5-.7-2.3-.4l-5.7 2.1c-.8.3-1.6-.3-1.6-1.1V7.5Zm3 1.1v14l4.1-1.5c.8-.3 1.6-.3 2.4 0V8.8c-.2-.5-.6-.8-1.1-.8H9.6c-.3 0-.6.3-.6.6Zm8 12.5c.8-.3 1.7-.3 2.5 0l3.5 1.3V8.6c0-.3-.3-.6-.6-.6h-2.7c-.5 0-.9.3-1.1.8V19h-1.6v2.1Z'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-overdue {
+	--recall-icon-bg: #ffd9ca;
+	--recall-icon-fill: #e35f45;
+	--recall-icon-line: #6a241d;
+	--recall-icon-symbol: #e35f45;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' fill-rule='evenodd' d='M16 3.2c7.1 0 12.8 5.7 12.8 12.8S23.1 28.8 16 28.8 3.2 23.1 3.2 16 8.9 3.2 16 3.2Zm-1.8 6.1h3.6l-.6 9.6h-2.4l-.6-9.6Zm1.8 15.1a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-today {
+	--recall-icon-bg: #fff0bd;
+	--recall-icon-fill: #f1a329;
+	--recall-icon-line: #6b3f12;
+	--recall-icon-symbol: #d78a18;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M10 3h3v4h6V3h3v4h1.5A4.5 4.5 0 0 1 28 11.5v11A4.5 4.5 0 0 1 23.5 27h-15A4.5 4.5 0 0 1 4 22.5v-11A4.5 4.5 0 0 1 8.5 7H10V3Zm-2 11v8.2c0 .6.5 1 1 1h14c.6 0 1-.5 1-1V14H8Zm3 3h3v3h-3v-3Zm5 0h3v3h-3v-3Z'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-future {
+	--recall-icon-bg: #dcecff;
+	--recall-icon-fill: #5791e6;
+	--recall-icon-line: #1f477c;
+	--recall-icon-symbol: #4f8fe8;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M8 3.5h16v4.2c0 3.2-1.7 6.1-4.4 7.7l-1 .6 1 .6a8.9 8.9 0 0 1 4.4 7.7v4.2H8v-4.2c0-3.2 1.7-6.1 4.4-7.7l1-.6-1-.6A8.9 8.9 0 0 1 8 7.7V3.5Zm4 3.5v.7c0 2 1.1 3.9 2.9 4.9l1.1.7 1.1-.7A5.6 5.6 0 0 0 20 7.7V7h-8Zm4 11.7-1.1.7a5.6 5.6 0 0 0-2.9 4.9v.7h8v-.7c0-2-1.1-3.9-2.9-4.9l-1.1-.7Z'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-new {
+	--recall-icon-bg: #ddf5c8;
+	--recall-icon-fill: #5eb852;
+	--recall-icon-line: #2b682f;
+	--recall-icon-symbol: #57b95a;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M15 26.5V17c-1.3-3.9-4.8-6.4-9.8-6.9-.4 4.9 2.2 8.8 6.7 10.2l1.4.4v5.8H15Zm2 0V16.2l1.2-2.2c2.2-4 5.9-6.5 10.8-6.9.3 5.4-2.9 9.7-8.2 10.9l-2.1.5V26.5H17Z'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-review {
+	--recall-icon-bg: #dce8ff;
+	--recall-icon-fill: #6f8fe8;
+	--recall-icon-line: #304f91;
+	--recall-icon-symbol: #6682e8;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' fill-rule='evenodd' d='M16 5.5a10.5 10.5 0 1 0 10.5 10.5h-3.4A7.1 7.1 0 1 1 21 11l-2.4 2.4H28V4l-2.7 2.7A10.4 10.4 0 0 0 16 5.5Zm0 7.4a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-relearning {
+	--recall-icon-bg: #f0d6ff;
+	--recall-icon-fill: #bd62ef;
+	--recall-icon-line: #65358c;
+	--recall-icon-symbol: #b85bed;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M18.4 2 6.8 17.3h7.6L11.8 30l13.4-17h-8.4L18.4 2Z'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-icon-archived {
+	--recall-icon-bg: #e6e2dc;
+	--recall-icon-fill: #8d8b8a;
+	--recall-icon-line: #4e4a47;
+	--recall-icon-symbol: #6d6a68;
+	--recall-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='black' d='M6 9h20v16.5A2.5 2.5 0 0 1 23.5 28h-15A2.5 2.5 0 0 1 6 25.5V9Zm2-5h16a3 3 0 0 1 3 3v2H5V7a3 3 0 0 1 3-3Zm5.2 9.5h5.6v2.8h-5.6v-2.8Z'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-leaderboard-avatar {
+	overflow: hidden;
+	isolation: isolate;
+}
+
+.recall-scheduler-leaderboard-avatar::before {
+	inset: 3px;
+	width: auto;
+	height: auto;
+	border: 0;
+	border-radius: 0;
+	background: var(--recall-avatar-svg) center / contain no-repeat;
+	box-shadow: none;
+}
+
+.recall-scheduler-leaderboard-avatar::after {
+	display: none;
+}
+
+.recall-scheduler-avatar-1 {
+	--recall-avatar-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23f7c948' d='m12 11 7 5 5-9 5 9 7-5 1 13H11l1-13Z'/%3E%3Cpath fill='%235a3b22' d='M14 20c0-7 5-11 10-11s10 4 10 11v8H14v-8Z'/%3E%3Cpath fill='%23ffd4bd' d='M13 22c0-7 4-10 11-10s11 3 11 10c0 8-5 13-11 13s-11-5-11-13Z'/%3E%3Cpath fill='%23343a72' d='M11 34c4-4 22-4 26 0v10H11V34Z'/%3E%3Ccircle cx='20' cy='23' r='2' fill='%23222'/%3E%3Ccircle cx='28' cy='23' r='2' fill='%23222'/%3E%3Cpath stroke='%23b75b58' stroke-linecap='round' stroke-width='2' d='M21 29c2 2 4 2 6 0'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-avatar-2 {
+	--recall-avatar-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23dfe7ff' d='m13 10 7 4 4-8 4 8 7-4v12H13V10Z'/%3E%3Cpath fill='%2375a8ff' d='M9 24c0-9 6-15 15-15s15 6 15 15-6 16-15 16S9 33 9 24Z'/%3E%3Cpath fill='%23d7f0ff' d='M15 28c0-5 4-8 9-8s9 3 9 8-4 9-9 9-9-4-9-9Z'/%3E%3Cpath fill='%23f2a333' d='m21 27 3 3 3-3-3-2-3 2Z'/%3E%3Ccircle cx='19' cy='24' r='2' fill='%23223'/%3E%3Ccircle cx='29' cy='24' r='2' fill='%23223'/%3E%3Cpath fill='none' stroke='%23343a72' stroke-linecap='round' stroke-width='3' d='M11 23c-5 1-5 11 0 12m26-12c5 1 5 11 0 12'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-avatar-3 {
+	--recall-avatar-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23e59d56' d='m13 10 7 4 4-8 4 8 7-4v12H13V10Z'/%3E%3Cpath fill='%237bd86a' d='M8 28c0-10 7-17 16-17s16 7 16 17c0 8-6 13-16 13S8 36 8 28Z'/%3E%3Cpath fill='%2397ef86' d='M18 13c4-7 10-6 14-3-3 5-8 7-14 3Z'/%3E%3Ccircle cx='19' cy='27' r='2.5' fill='%23223'/%3E%3Ccircle cx='29' cy='27' r='2.5' fill='%23223'/%3E%3Cpath stroke='%23223' stroke-linecap='round' stroke-width='2.5' d='M20 33c3 3 7 3 10 0'/%3E%3C/svg%3E");
+}
+
+.recall-scheduler-leaderboard-item-text {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	min-width: 0;
+}
+
+.recall-scheduler-leaderboard-item-title,
+.recall-scheduler-leaderboard-item-meta {
+	display: block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.recall-scheduler-leaderboard-item-title {
+	font-weight: 750;
+	line-height: 1.35;
+}
+
+.recall-scheduler-leaderboard-item-meta {
+	line-height: 1.4;
+}
+
+.recall-scheduler-leaderboard-count {
+	align-self: center;
+	font-weight: 800;
+	color: var(--recall-sage-dark);
+	white-space: nowrap;
+}
+
+.recall-scheduler-toolbar-btn {
+	color: var(--recall-sage-dark);
+	font-weight: 650;
+}
+
+.recall-scheduler-mode-btn.is-active {
+	border-color: color-mix(in hsl, var(--recall-sage) 70%, transparent);
+	background: color-mix(in hsl, var(--recall-sage) 22%, var(--recall-clay-raised));
+	color: var(--recall-sage-dark);
+	font-weight: 700;
+}
+
+.recall-scheduler-empty-state {
+	margin: 16px 0 0;
+	box-sizing: border-box;
+	padding: 22px 32px;
+	border-radius: 22px;
+	background: color-mix(in hsl, var(--recall-clay-raised) 76%, transparent);
+	color: var(--text-muted, #746b5d);
+	text-align: center;
+	line-height: 1.6;
+}
+
+.recall-scheduler-queue-list {
+	box-sizing: border-box;
+	max-height: min(52vh, 420px);
+	overflow-y: auto;
+	padding: 10px 10px 10px 0;
+}
+
+.recall-scheduler-queue-list::-webkit-scrollbar,
+.recall-scheduler-file-tree::-webkit-scrollbar {
+	width: 7px;
+}
+
+.recall-scheduler-queue-list::-webkit-scrollbar-thumb,
+.recall-scheduler-file-tree::-webkit-scrollbar-thumb {
+	border-radius: 999px;
+	background: color-mix(in hsl, var(--recall-sage) 42%, transparent);
+}
+
+.recall-scheduler-item {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	width: auto;
+	padding: 34px 44px 32px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 28px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 72%, transparent);
+	border-radius: 24px;
+	background:
+		linear-gradient(145deg, color-mix(in hsl, var(--recall-clay-raised) 94%, white 6%), var(--recall-clay-raised));
+	box-shadow:
+		6px 8px 16px rgba(92, 73, 41, 0.13),
+		-4px -4px 10px rgba(255, 255, 255, 0.48);
+	transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.recall-scheduler-item:hover {
+	transform: translateY(-1px);
+	box-shadow:
+		8px 10px 20px rgba(92, 73, 41, 0.16),
+		-4px -4px 10px rgba(255, 255, 255, 0.54);
+}
+
+.recall-scheduler-card-head {
+	box-sizing: border-box;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 20px;
+	margin-bottom: 0;
+}
+
+.recall-scheduler-card-title-group {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	min-width: 0;
+}
+
+.recall-scheduler-card-icon {
+	width: 30px;
+	height: 30px;
+	flex-basis: 30px;
+	margin-top: -2px;
+}
+
+.recall-scheduler-card-head .recall-scheduler-countdown-wrap {
+	flex: 0 0 auto;
+	margin-top: 1px;
+}
+
+.recall-scheduler-item-title,
+.recall-scheduler-sidebar-item-title {
+	font-weight: 700;
+}
+
+.recall-scheduler-item-excerpt {
+	margin-top: 0;
+	line-height: 1.6;
+}
+
+.recall-scheduler-item-meta {
+	margin-top: 0;
+	line-height: 1.58;
+}
+
+.recall-scheduler-item-meta .recall-scheduler-source {
+	color: var(--recall-sage-dark);
+	text-decoration: none;
+	border-bottom: 1px dotted color-mix(in hsl, var(--recall-sage-dark) 62%, transparent);
+}
+
+.recall-scheduler-item-actions,
+.recall-scheduler-alarm-actions,
+.recall-scheduler-editor-actions {
+	box-sizing: border-box;
+	column-gap: 12px;
+	row-gap: 10px;
+}
+
+.recall-scheduler-sidebar-btn,
+.recall-scheduler-feedback-btn {
+	padding: 7px 16px;
+	border: 1px solid color-mix(in hsl, var(--recall-clay-border) 82%, transparent);
+	border-radius: 999px;
+	background: linear-gradient(145deg, color-mix(in hsl, var(--recall-clay-raised) 92%, white 8%), var(--recall-clay-raised));
+	color: var(--recall-ink);
+	line-height: 1.3;
+	box-shadow:
+		3px 4px 9px rgba(92, 73, 41, 0.13),
+		inset 0 1px 0 rgba(255, 255, 255, 0.5);
+	transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.recall-scheduler-sidebar-btn:hover,
+.recall-scheduler-feedback-btn:hover {
+	color: var(--recall-ink);
+	transform: translateY(-1px);
+	box-shadow:
+		4px 6px 12px rgba(92, 73, 41, 0.16),
+		inset 0 1px 0 rgba(255, 255, 255, 0.56);
+}
+
+.recall-scheduler-sidebar-btn.mod-cta {
+	border-color: color-mix(in hsl, var(--recall-sage) 70%, var(--recall-clay-border));
+	background: color-mix(in hsl, var(--recall-sage) 26%, var(--recall-clay-raised));
+	color: var(--recall-sage-dark) !important;
+}
+
+.recall-scheduler-sidebar-btn.mod-warning {
+	border-color: color-mix(in hsl, #b64238 70%, var(--recall-clay-border));
+	background: color-mix(in hsl, #d76b5f 22%, var(--recall-clay-raised));
+	color: #5f241f !important;
+	font-weight: 700;
+}
+
+.recall-scheduler-sidebar-btn.mod-cta:hover,
+.recall-scheduler-sidebar-btn.mod-warning:hover {
+	color: var(--recall-ink) !important;
+}
+
+.recall-scheduler-feedback-forgotten {
+	--recall-feedback: #c96055;
+}
+
+.recall-scheduler-feedback-difficult {
+	--recall-feedback: #d9953f;
+}
+
+.recall-scheduler-feedback-remembered {
+	--recall-feedback: #5f8fb2;
+}
+
+.recall-scheduler-feedback-easy {
+	--recall-feedback: #6c9f62;
+}
+
+.recall-scheduler-feedback-btn:hover {
+	border-color: color-mix(in hsl, var(--recall-feedback, var(--recall-sage)) 64%, transparent);
+	background: color-mix(in hsl, var(--recall-feedback, var(--recall-sage)) 15%, var(--recall-clay-raised));
+}
+
+.recall-scheduler-countdown-track {
+	height: 3px;
+	background: color-mix(in hsl, var(--recall-clay-border, #d1c4a5) 34%, transparent);
+}
+
+.recall-scheduler-countdown-icon {
+	width: 20px;
+	height: 20px;
+	border-radius: 7px;
+	background: color-mix(in hsl, var(--recall-clay-raised, #f6ead2) 82%, transparent);
+	box-shadow:
+		2px 3px 6px rgba(92, 73, 41, 0.12),
+		inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.recall-scheduler-alarm-header {
+	align-items: flex-start;
+}
+
+.recall-scheduler-alarm-icon-wrap {
+	justify-content: flex-start;
+}
+
+.recall-scheduler-alarm-icon {
+	width: 42px;
+	height: 42px;
+	border-radius: 14px;
+	background: linear-gradient(145deg, #f1d38f, #dca966);
+	box-shadow:
+		5px 6px 14px rgba(122, 83, 35, 0.2),
+		-3px -3px 8px rgba(255, 255, 255, 0.46),
+		inset -3px -3px 0 rgba(143, 88, 43, 0.14);
+	animation: recall-alarm-bob 1.8s ease-in-out infinite;
+}
+
+.recall-scheduler-alarm-icon::before {
+	content: '';
+	position: absolute;
+	left: 11px;
+	top: 9px;
+	width: 20px;
+	height: 20px;
+	border-radius: 8px 8px 5px 5px;
+	background: #fff0b7;
+	box-shadow:
+		inset -3px -3px 0 #d8904d,
+		0 0 0 2px rgba(102, 72, 38, 0.42);
+}
+
+.recall-scheduler-alarm-icon::after {
+	content: '';
+	position: absolute;
+	left: 17px;
+	top: 29px;
+	width: 8px;
+	height: 5px;
+	border-radius: 0 0 4px 4px;
+	background: #79552f;
+	box-shadow:
+		-7px -21px 0 -2px #79552f,
+		7px -21px 0 -2px #79552f;
+}
+
+.recall-scheduler-alarm-summary {
+	margin: 0 0 22px;
+	line-height: 1.62;
+	color: color-mix(in hsl, var(--recall-ink) 78%, var(--text-muted, #746b5d));
+}
+
+.recall-scheduler-alarm-list {
+	max-height: min(34vh, 210px);
+	overflow-y: auto;
+	margin: 0 0 24px;
+	padding: 16px 20px;
+	border-radius: 18px;
+	background: color-mix(in hsl, var(--recall-clay-raised) 70%, transparent);
+	box-shadow: inset 0 1px 5px rgba(92, 73, 41, 0.08);
+}
+
+.recall-scheduler-alarm-item {
+	padding: 10px 0;
+	line-height: 1.5;
+	border-bottom: 1px dashed color-mix(in hsl, var(--recall-clay-border) 62%, transparent);
+}
+
+.recall-scheduler-file-tree {
+	max-height: min(48vh, 360px);
+	margin-top: 10px;
+	padding: 8px;
+	border-color: color-mix(in hsl, var(--recall-clay-border) 78%, transparent);
+	border-radius: 16px;
+	background: color-mix(in hsl, var(--recall-clay-raised) 72%, transparent);
+	box-shadow: inset 0 1px 7px rgba(92, 73, 41, 0.08);
+}
+
+.recall-scheduler-file-tree-folder {
+	padding: 2px 0;
+}
+
+.recall-scheduler-file-tree-folder summary,
+.recall-scheduler-file-tree-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 30px;
+	border-radius: 11px;
+}
+
+.recall-scheduler-file-tree-folder summary {
+	padding: 4px 7px;
+}
+
+.recall-scheduler-file-tree-folder summary::before {
+	width: 10px;
+	margin-right: -2px;
+	color: color-mix(in hsl, var(--recall-sage-dark) 72%, var(--text-muted));
+}
+
+.recall-scheduler-file-tree-item {
+	padding: 5px 7px;
+	margin-top: 3px;
+	color: var(--recall-ink);
+}
+
+.recall-scheduler-file-tree-item:hover,
+.recall-scheduler-file-tree-folder summary:hover {
+	background: color-mix(in hsl, var(--recall-sage) 14%, transparent);
+}
+
+.recall-scheduler-file-tree-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.recall-scheduler-pixel-icon {
+	position: relative;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	flex: 0 0 20px;
+	image-rendering: pixelated;
+}
+
+.recall-scheduler-pixel-folder::before {
+	content: '';
+	position: absolute;
+	left: 2px;
+	top: 7px;
+	width: 15px;
+	height: 10px;
+	background: #d7a756;
+	box-shadow:
+		0 0 0 2px #765a30,
+		inset -3px -3px 0 #b9823c,
+		inset 2px 2px 0 #f5d991;
+}
+
+.recall-scheduler-pixel-folder::after {
+	content: '';
+	position: absolute;
+	left: 3px;
+	top: 4px;
+	width: 8px;
+	height: 5px;
+	background: #f0cb76;
+	box-shadow:
+		0 0 0 2px #765a30,
+		inset 2px 1px 0 #fff2b8;
+}
+
+.recall-scheduler-pixel-note::before {
+	content: '';
+	position: absolute;
+	left: 5px;
+	top: 2px;
+	width: 11px;
+	height: 15px;
+	background:
+		linear-gradient(#8fab80 0 0) 3px 5px / 6px 2px no-repeat,
+		linear-gradient(#e2b765 0 0) 3px 9px / 5px 2px no-repeat,
+		#f4ead0;
+	box-shadow:
+		0 0 0 2px #65593e,
+		inset -3px -3px 0 #d7c69d,
+		inset 2px 2px 0 #fff7dc;
+}
+
+.recall-scheduler-pixel-note::after {
+	content: '';
+	position: absolute;
+	left: 13px;
+	top: 2px;
+	width: 3px;
+	height: 3px;
+	background: #cdb27a;
+	box-shadow: -2px 2px 0 #65593e;
+}
+
+@keyframes recall-alarm-bob {
+	0%,
+	100% {
+		transform: translateY(0) rotate(0deg);
+	}
+	50% {
+		transform: translateY(-2px) rotate(-2deg);
+	}
+}
+
+.modal.recall-scheduler-popup-shell.recall-theme-mint .modal-close-button {
+	border-color: #c7e2db;
+	background: #f7fffc;
+	color: #176b57;
+	box-shadow:
+		0 8px 18px rgba(33, 87, 75, 0.14),
+		inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-modal,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-editor-modal,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-file-picker-modal,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-alarm-modal {
+	--recall-clay-bg: #eef8f4;
+	--recall-clay-raised: #ffffff;
+	--recall-clay-border: #c7e2db;
+	--recall-clay-shadow: rgba(31, 82, 75, 0.13);
+	--recall-clay-inset: rgba(255, 255, 255, 0.8);
+	--recall-sage: #00d4a4;
+	--recall-sage-dark: #176b57;
+	--recall-sand: #dff7e5;
+	--recall-ink: #101816;
+	border-color: #c7e2db;
+	background:
+		radial-gradient(circle at 12% 10%, rgba(255, 244, 218, 0.82), transparent 30%),
+		radial-gradient(circle at 90% 0%, rgba(135, 168, 200, 0.22), transparent 28%),
+		linear-gradient(145deg, #fffaf0, #edf8f7 58%, #f7fffc);
+	box-shadow:
+		0 18px 42px rgba(45, 76, 72, 0.13),
+		inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-modal-subtitle,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-leaderboard-subtitle,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-leaderboard-empty,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-leaderboard-item-meta,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-status-nav-title,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-editor-field-label {
+	color: #5d736f;
+}
+
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-item,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-leaderboard,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-status-nav,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-target-menu,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-target-option-list,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-file-tree {
+	background: rgba(255, 255, 255, 0.86);
+	box-shadow:
+		0 10px 24px rgba(49, 93, 86, 0.1),
+		inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-sidebar-btn.mod-cta,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-mode-btn.is-active,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-leaderboard-tab.is-active,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-status-nav-item.is-active {
+	background: linear-gradient(145deg, #d8fff2, #bef7e7);
+	border-color: #76dabc;
+	color: #176b57 !important;
+}
+
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-visual-icon,
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-leaderboard-avatar {
+	border-radius: 999px;
+	box-shadow:
+		0 8px 16px rgba(49, 93, 86, 0.13),
+		inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.recall-scheduler-popup-shell.recall-theme-mint .recall-scheduler-visual-icon {
+	--recall-icon-bg: #f5fffb;
+	--recall-icon-fill: #00d4a4;
+	--recall-icon-accent: #66d889;
+	--recall-icon-line: #176b57;
+}
+
+.modal.recall-scheduler-popup-shell.recall-theme-dark .modal-close-button {
+	border-color: #343a4a;
+	background: #111318;
+	color: #d8dcff;
+	box-shadow:
+		0 0 0 1px rgba(94, 106, 210, 0.2),
+		0 10px 24px rgba(0, 0, 0, 0.42);
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-modal,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-editor-modal,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-file-picker-modal,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-alarm-modal {
+	--recall-clay-bg: #050608;
+	--recall-clay-raised: #111318;
+	--recall-clay-border: #2b3142;
+	--recall-clay-shadow: rgba(0, 0, 0, 0.5);
+	--recall-clay-inset: rgba(255, 255, 255, 0.04);
+	--recall-sage: #5e6ad2;
+	--recall-sage-dark: #c7ccff;
+	--recall-sand: #f0bf63;
+	--recall-ink: #f7f8ff;
+	border-color: #30364a;
+	background:
+		radial-gradient(circle at 78% 12%, rgba(94, 106, 210, 0.18), transparent 28%),
+		radial-gradient(circle at 10% 90%, rgba(240, 191, 99, 0.08), transparent 24%),
+		linear-gradient(145deg, #050608, #111318 58%, #0a0c11);
+	box-shadow:
+		0 24px 54px rgba(0, 0, 0, 0.52),
+		inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	color: #f7f8ff;
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-modal-subtitle,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard-subtitle,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard-empty,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard-item-meta,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-status-nav-title,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-editor-field-label,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-item-excerpt,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-item-meta {
+	color: #9aa2b8;
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-item,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-status-nav,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard-item,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-target-menu,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-target-option-list,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-file-tree,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-alarm-list {
+	border-color: #293044;
+	background: #111318;
+	box-shadow:
+		0 16px 34px rgba(0, 0, 0, 0.28),
+		inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-sidebar-btn,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-feedback-btn,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-theme-switcher,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-target-trigger,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-search-input,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-input,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-textarea {
+	border-color: #30364a;
+	background: linear-gradient(145deg, #171a22, #101218);
+	color: #f7f8ff !important;
+	box-shadow:
+		0 8px 16px rgba(0, 0, 0, 0.26),
+		inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-sidebar-btn.mod-cta,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-mode-btn.is-active,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard-tab.is-active,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-status-nav-item.is-active {
+	background: linear-gradient(145deg, #5e6ad2, #4651b8);
+	border-color: #7f89ef;
+	color: #ffffff !important;
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-visual-icon,
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-leaderboard-avatar {
+	border: 1px solid #30364a;
+	background:
+		radial-gradient(circle at 34% 24%, rgba(126, 137, 239, 0.38), transparent 30%),
+		linear-gradient(145deg, #171a22, #0d0f15);
+	box-shadow:
+		0 0 18px rgba(94, 106, 210, 0.16),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.recall-scheduler-popup-shell.recall-theme-dark .recall-scheduler-visual-icon {
+	--recall-icon-bg: #171a22;
+	--recall-icon-fill: #7f89ef;
+	--recall-icon-accent: #f0bf63;
+	--recall-icon-line: #e4e7ff;
+}
+
+.modal.recall-scheduler-popup-shell.recall-theme-pixel {
+	max-width: calc(100vw - 36px);
+	padding: 16px 30px 22px 18px;
+}
+
+.modal.recall-scheduler-popup-shell.recall-theme-pixel .modal-close-button {
+	top: 4px;
+	right: 4px;
+	z-index: 4;
+	width: 28px;
+	height: 28px;
+	border: 2px solid #25294d;
+	border-radius: 4px;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.75), transparent 42%),
+		linear-gradient(145deg, #eef0ff, #b8bbed);
+	color: #202340;
+	box-shadow:
+		3px 3px 0 #676fae,
+		inset 2px 2px 0 #ffffff,
+		inset -3px -3px 0 #8d94cf;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-editor-modal,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-file-picker-modal,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-alarm-modal {
+	--recall-clay-bg: #b7b8e7;
+	--recall-clay-raised: #d9dafb;
+	--recall-clay-border: #4d568f;
+	--recall-clay-shadow: rgba(27, 30, 68, 0.32);
+	--recall-clay-inset: rgba(255, 255, 255, 0.68);
+	--recall-sage: #f2a024;
+	--recall-sage-dark: #30284d;
+	--recall-sand: #f2a024;
+	--recall-ink: #151935;
+	border: 3px solid #4d568f;
+	border-radius: 12px;
+	background:
+		radial-gradient(circle at 5% 50%, rgba(47, 52, 93, 0.52) 0 2px, transparent 2.6px) 0 0 / 14px 14px,
+		radial-gradient(circle at 95% 52%, rgba(47, 52, 93, 0.52) 0 2px, transparent 2.6px) 0 0 / 14px 14px,
+		linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px) 0 0 / 22px 22px,
+		linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px) 0 0 / 22px 22px,
+		linear-gradient(145deg, #cacbfa, #a5a8db 58%, #858bbb);
+	box-shadow:
+		0 0 0 4px #d9dcff,
+		0 0 0 7px #6870ad,
+		18px 22px 42px rgba(7, 10, 28, 0.36),
+		inset 3px 3px 0 rgba(255, 255, 255, 0.62),
+		inset -5px -5px 0 rgba(54, 58, 106, 0.25);
+	color: #151935;
+	font-family: "LXGW WenKai Screen", "Avenir Next", "Trebuchet MS", sans-serif;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal {
+	position: relative;
+	width: min(840px, calc(100vw - 100px));
+	max-width: 880px;
+	padding-inline: 0;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal::before {
+	content: '';
+	position: absolute;
+	inset: 12px;
+	pointer-events: none;
+	background:
+		radial-gradient(circle, #25294d 0 3px, #d9dcff 3.5px 6px, transparent 6.5px) left top / 18px 18px no-repeat,
+		radial-gradient(circle, #25294d 0 3px, #d9dcff 3.5px 6px, transparent 6.5px) right top / 18px 18px no-repeat,
+		radial-gradient(circle, #25294d 0 3px, #d9dcff 3.5px 6px, transparent 6.5px) left bottom / 18px 18px no-repeat,
+		radial-gradient(circle, #25294d 0 3px, #d9dcff 3.5px 6px, transparent 6.5px) right bottom / 18px 18px no-repeat;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 20px;
+	width: 4px;
+	height: 4px;
+	pointer-events: none;
+	background: #535a95;
+	box-shadow:
+		8px 0 0 #535a95,
+		16px 0 0 #535a95,
+		0 8px 0 #535a95,
+		8px 8px 0 #535a95,
+		16px 8px 0 #535a95;
+	opacity: 0.62;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-panel-body {
+	padding: 30px 34px 32px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal-header {
+	margin-bottom: 20px;
+	padding: 0 10px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal h2,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-alarm-modal h2,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-file-picker-modal h3 {
+	font-size: 1.34em;
+	font-weight: 900;
+	letter-spacing: 0.04em;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-version-badge,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal-count {
+	border: 2px solid #4d568f;
+	border-radius: 4px;
+	background: linear-gradient(145deg, #eef0ff, #b9bdec);
+	color: #25294d;
+	box-shadow:
+		2px 2px 0 #737ab8,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.76),
+		inset -2px -2px 0 rgba(73, 79, 142, 0.22);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal-subtitle,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-subtitle,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-empty,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-item-meta,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav-title,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-editor-field-label {
+	color: #3c426b;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-theme-switcher,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-search-input,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-target-trigger,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-input,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-textarea {
+	border: 2px solid #4d568f;
+	border-radius: 5px;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.68), transparent 42%),
+		#eef0ff;
+	color: #151935 !important;
+	box-shadow:
+		3px 3px 0 #7a82be,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.8),
+		inset -2px -2px 0 rgba(88, 94, 160, 0.22);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal-toolbar {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 8px;
+	margin: 12px 0 16px;
+	padding: 0;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-sidebar-btn,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-feedback-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	border: 2px solid #353a72;
+	border-radius: 4px;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.72), transparent 46%),
+		linear-gradient(145deg, #e6e8ff, #bfc3ef);
+	color: #161a37 !important;
+	font-weight: 850;
+	box-shadow:
+		3px 3px 0 #6971ae,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.82),
+		inset -3px -3px 0 rgba(76, 83, 148, 0.22);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-toolbar-btn,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-mode-btn {
+	width: 100%;
+	min-height: 44px;
+	border-radius: 5px 5px 0 0;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-sidebar-btn:hover,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-feedback-btn:hover {
+	transform: translate(1px, 1px);
+	box-shadow:
+		2px 2px 0 #6971ae,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.82),
+		inset -3px -3px 0 rgba(76, 83, 148, 0.22);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-sidebar-btn.mod-cta,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-mode-btn.is-active,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-tab.is-active,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav-item.is-active {
+	border-color: #8f5310;
+	background:
+		linear-gradient(135deg, rgba(255, 239, 168, 0.72), transparent 46%),
+		linear-gradient(145deg, #ffc65e, #ed971c);
+	color: #221a10 !important;
+	box-shadow:
+		3px 3px 0 #9d6b21,
+		inset 2px 2px 0 rgba(255, 242, 175, 0.82),
+		inset -3px -3px 0 rgba(124, 75, 13, 0.22);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-toolbar-btn::before,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-mode-btn::before {
+	content: '';
+	width: 14px;
+	height: 14px;
+	flex: 0 0 14px;
+	background: #f8df8b;
+	box-shadow:
+		0 0 0 2px #353a72,
+		inset -3px -3px 0 rgba(113, 77, 28, 0.22),
+		inset 2px 2px 0 rgba(255, 255, 255, 0.72);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-toolbar-manual-add::before {
+	background: #ffad35;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-mode-today::before {
+	clip-path: polygon(50% 0, 62% 32%, 96% 32%, 68% 52%, 80% 90%, 50% 68%, 20% 90%, 32% 52%, 4% 32%, 38% 32%);
+	background: #ffd94f;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-mode-active::before {
+	background:
+		linear-gradient(#353a72 0 0) 2px 2px / 10px 2px no-repeat,
+		linear-gradient(#353a72 0 0) 2px 6px / 10px 2px no-repeat,
+		linear-gradient(#353a72 0 0) 2px 10px / 10px 2px no-repeat,
+		#f0f2ff;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-mode-archived::before {
+	background:
+		linear-gradient(#353a72 0 0) 3px 5px / 8px 2px no-repeat,
+		#9aa1ce;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-content-layout {
+	grid-template-columns: 198px minmax(0, 1fr);
+	gap: 14px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav {
+	gap: 7px;
+	padding: 12px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav-item {
+	gap: 8px;
+	min-height: 42px;
+	padding: 7px 8px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-icon {
+	width: 22px;
+	height: 22px;
+	flex-basis: 22px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav-label {
+	flex: 1 1 auto;
+	min-width: 0;
+	letter-spacing: 0.01em;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav-count {
+	min-width: 24px;
+	height: 22px;
+	padding: 0 5px;
+	font-size: 0.74em;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-status-nav,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-item,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-target-menu,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-target-option-list,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-file-tree,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-alarm-list {
+	border: 2px solid #4d568f;
+	border-radius: 8px;
+	background:
+		linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px) 0 0 / 18px 18px,
+		linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px) 0 0 / 18px 18px,
+		linear-gradient(145deg, #e4e5ff, #c7caef);
+	box-shadow:
+		4px 4px 0 #737ab8,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.72),
+		inset -3px -3px 0 rgba(76, 83, 148, 0.18);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-item {
+	min-height: 76px;
+	border: 2px solid #4d568f;
+	border-radius: 5px;
+	background: #eef0ff;
+	box-shadow:
+		3px 3px 0 #737ab8,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.82);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-rank {
+	border: 2px solid #8f5310;
+	border-radius: 2px;
+	background: #ffc65e;
+	color: #3f280d;
+	box-shadow: 2px 2px 0 #9d6b21;
+	clip-path: polygon(0 34%, 20% 34%, 30% 0, 50% 28%, 70% 0, 80% 34%, 100% 34%, 100% 100%, 0 100%);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-visual-icon,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-avatar {
+	border: 2px solid #353a72;
+	border-radius: 3px;
+	background:
+		linear-gradient(135deg, rgba(255, 255, 255, 0.68), transparent 46%),
+		linear-gradient(145deg, #eef0ff, #bfc3ef);
+	box-shadow:
+		2px 2px 0 #6971ae,
+		inset 2px 2px 0 rgba(255, 255, 255, 0.82),
+		inset -3px -3px 0 rgba(76, 83, 148, 0.22);
+	image-rendering: pixelated;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-visual-icon {
+	--recall-icon-bg: #eef0ff;
+	--recall-icon-fill: #f2a024;
+	--recall-icon-accent: #58c756;
+	--recall-icon-line: #25294d;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-visual-icon::before,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-visual-icon::after,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-avatar::before,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-leaderboard-avatar::after {
+	border-radius: 0;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-item {
+	gap: 12px;
+	padding: 18px 22px;
+	margin-bottom: 14px;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-item:hover {
+	transform: translate(-1px, -1px);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-item-meta,
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-item-excerpt {
+	color: #41486f;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-source {
+	color: #214e94 !important;
+	border-bottom-color: #214e94;
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-countdown-track {
+	height: 7px;
+	border: 2px solid #353a72;
+	border-radius: 2px;
+	background: #eef0ff;
+	box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-countdown-track-fill {
+	border-radius: 0;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-pixel-note {
+	width: 28px;
+	height: 28px;
+	flex-basis: 28px;
+	transform: rotate(7deg);
+}
+
+.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-pixel-note::before {
+	left: 7px;
+	top: 3px;
+	width: 14px;
+	height: 20px;
+}
+
+@media (max-width: 720px) {
+	.recall-scheduler-modal {
+		width: min(590px, calc(100vw - 64px));
+	}
+
+	.recall-scheduler-modal-header {
+		flex-wrap: wrap;
+	}
+
+	.recall-scheduler-header-controls {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	.recall-scheduler-content-layout {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.recall-scheduler-status-nav {
+		position: static;
+		width: 100%;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.recall-scheduler-status-nav-title {
+		width: 100%;
+	}
+
+	.recall-scheduler-status-nav-item {
+		width: auto;
+	}
+
+	.recall-scheduler-leaderboard-head {
+		flex-direction: column;
+	}
+
+	.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-modal-toolbar {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.recall-scheduler-popup-shell.recall-theme-pixel .recall-scheduler-content-layout {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.recall-scheduler-item,
+	.recall-scheduler-sidebar-btn,
+	.recall-scheduler-feedback-btn,
+	.recall-scheduler-alarm-icon,
+	.recall-scheduler-countdown-icon {
+		animation: none;
+		transition: none;
+	}
+}

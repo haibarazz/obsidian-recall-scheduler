@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+	<title id="title">Select review scope</title>
+	<desc id="desc">A preview of adding multiple review targets from a note, including all note and heading-level selections.</desc>
+	<defs>
+		<linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#fff9df"/>
+			<stop offset="0.55" stop-color="#eef8f4"/>
+			<stop offset="1" stop-color="#e4f0ff"/>
+		</linearGradient>
+		<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+			<feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#5f6478" flood-opacity="0.20"/>
+		</filter>
+	</defs>
+	<rect width="1280" height="760" rx="36" fill="#eef0f4"/>
+	<rect x="124" y="64" width="1032" height="632" rx="42" fill="url(#panel)" stroke="#c4bfd7" stroke-width="3" filter="url(#shadow)"/>
+	<text x="196" y="132" font-size="40" font-weight="900" fill="#2674f2">选择复习范围</text>
+	<text x="196" y="176" font-size="22" fill="#60687d">一次选择多个范围，每个标题会分别创建一个记忆项。</text>
+	<g transform="translate(196 226)" font-size="20" font-weight="800" fill="#2f3a4a">
+		<rect x="0" y="0" width="118" height="52" rx="24" fill="#e8f7f5" stroke="#bfd4d4" stroke-width="3"/>
+		<text x="59" y="34" text-anchor="middle">全选</text>
+		<rect x="142" y="0" width="142" height="52" rx="24" fill="#e8f7f5" stroke="#bfd4d4" stroke-width="3"/>
+		<text x="213" y="34" text-anchor="middle">一级标题</text>
+		<rect x="308" y="0" width="142" height="52" rx="24" fill="#e8f7f5" stroke="#bfd4d4" stroke-width="3"/>
+		<text x="379" y="34" text-anchor="middle">二级标题</text>
+		<rect x="474" y="0" width="142" height="52" rx="24" fill="#e8f7f5" stroke="#bfd4d4" stroke-width="3"/>
+		<text x="545" y="34" text-anchor="middle">三级标题</text>
+	</g>
+	<rect x="196" y="314" width="888" height="296" rx="24" fill="#ffffff" stroke="#cfd8d8" stroke-width="3"/>
+	<g transform="translate(224 342)" font-size="24" font-weight="760">
+		<rect width="832" height="48" rx="20" fill="#dcefe5" stroke="#91b491" stroke-width="3"/>
+		<text x="416" y="32" text-anchor="middle" fill="#2f4a35">✓ 全部笔记</text>
+		<rect y="64" width="832" height="48" rx="20" fill="#ffffff" stroke="#d8dde5" stroke-width="3"/>
+		<text x="416" y="96" text-anchor="middle" fill="#242833"># Abstract</text>
+		<rect y="128" width="832" height="48" rx="20" fill="#ffffff" stroke="#d8dde5" stroke-width="3"/>
+		<text x="416" y="160" text-anchor="middle" fill="#242833">## 1. 论文核心概念</text>
+		<rect y="192" width="832" height="48" rx="20" fill="#dceafe" stroke="#9ab4ef" stroke-width="3"/>
+		<text x="416" y="224" text-anchor="middle" fill="#244c91">✓ ## 2. 实验结果与分析</text>
+	</g>
+	<g transform="translate(838 634)" font-size="22" font-weight="800">
+		<rect width="112" height="56" rx="25" fill="#d5efe2" stroke="#91b491" stroke-width="3"/>
+		<text x="56" y="36" text-anchor="middle" fill="#46694a">添加</text>
+		<rect x="136" width="112" height="56" rx="25" fill="#eef8fb" stroke="#c7d5d9" stroke-width="3"/>
+		<text x="192" y="36" text-anchor="middle" fill="#424b67">取消</text>
+	</g>
+</svg>

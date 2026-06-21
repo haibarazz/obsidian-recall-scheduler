@@ -1,0 +1,9 @@
+{
+	"id": "recall-scheduler",
+	"name": "记忆复习调度器",
+	"version": "1.1.7",
+	"minAppVersion": "1.0.0",
+	"description": "一个轻量级的 Obsidian 复习提醒插件，基于简化忘却曲线自动安排复习。",
+	"author": "Recall Scheduler contributors",
+	"isDesktopOnly": false
+}
